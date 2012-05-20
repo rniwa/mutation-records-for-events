@@ -4,6 +4,8 @@ function decorateEventWithMutationRecords(element, eventName) {
         var observer;
         if (window.WebKitMutationObserver)
             observer = new WebKitMutationObserver(observer);
+        else if (window.MozMutationObserver)
+            observer = new MozMutationObserver(observer);
         return observer && observer.takeRecords ? observer : null;
     }
 
@@ -11,6 +13,9 @@ function decorateEventWithMutationRecords(element, eventName) {
     var mutationObserver = createMutationObserver(function (records) {
         mutationRecords.concat(records);
     });
+    if (!mutationObserver)
+        return false;
+
     mutationObserver.observe(element, {
         childList: true,
         attributes: true,
@@ -24,4 +29,6 @@ function decorateEventWithMutationRecords(element, eventName) {
         event.mutationRecords = mutationRecords.concat(mutationObserver.takeRecords());
         mutationRecords = [];
     });
+
+    return true;
 }

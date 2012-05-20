@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html>
 <body>
-<div id="editor" contenteditable><br></div>
+<div id="editor" style="border: solid 1px grey; padding: 5px; max-width: 40em; min-height: 30em;" contenteditable>Type something here
+and see what happens in the console.</div>
 <script src="mutation-records-for-events.js"></script>
 <script>
 
 var editor = document.getElementById('editor');
-decorateEventWithMutationRecords(editor, 'input');
+if (!decorateEventWithMutationRecords(editor, 'input'))
+    editor.textContent = "Your browser doesn't fully support WebKitMutationObserver or MozMutationObserver :(";
 
 editor.addEventListener('input', function (event) {
     console.log(event.mutationRecords);
