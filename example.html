@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="editor" contenteditable><br></div>
+<script src="mutation-records-for-events.js"></script>
+<script>
+
+var editor = document.getElementById('editor');
+decorateEventWithMutationRecords(editor, 'input');
+
+editor.addEventListener('input', function (event) {
+    console.log(event.mutationRecords);
+});
+
+</script>
+</body>
+</html>
