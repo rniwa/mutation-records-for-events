@@ -2,7 +2,9 @@
 function decorateEventWithMutationRecords(element, eventName) {
     function createMutationObserver(observer) {
         var observer;
-        if (window.WebKitMutationObserver)
+        if (window.MutationObserver)
+            observer = new MutationObserver(observer);
+        else if (window.WebKitMutationObserver)
             observer = new WebKitMutationObserver(observer);
         else if (window.MozMutationObserver)
             observer = new MozMutationObserver(observer);
